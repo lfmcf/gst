@@ -1,0 +1,118 @@
+.sidebar {
+    width: 260px;
+    /* float: left; */
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgb(55, 61, 72);
+    padding-top: 70px;
+}
+
+.sidebar ul {
+    
+    list-style: none;
+    /* padding: 0; */
+    text-align: left;
+}
+
+.sidebar ul li{
+    padding: 10px;
+    
+}
+
+.sidebar ul li a{
+    text-decoration: none;
+    color: rgb(127, 136, 141);
+    font-size: 14px;
+    display: block;
+}
+
+.logo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    line-height: 70px;
+    text-align: center;
+}
+
+.main {
+    margin-left: 260px;
+    min-height: 100vh;
+    /* padding: 0 20px; */
+    background-color: rgb(250, 251, 254);
+}
+
+.top_bar {
+    height: 70px;
+    background-color: white;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+    padding: 0 24px;
+}
+
+.dashtabs {
+    height: 70px;
+    display: flex;
+    padding-left: 10px;
+    align-items: center;
+}
+
+.dashtabs p{
+    margin:0 ;
+}
+
+.card-body-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-link {
+    color: #98a6ad;
+    min-width: 32px;
+    display: block;
+    margin: 0 10px;
+    position: relative;
+}
+
+.account-user-avatar {
+    position: absolute;
+    top: calc(38px * .5);
+    left: 15px;
+}
+
+.account-user-avatar img {
+    height: 32px;
+    width: 32px;
+}
+
+.nav-user {
+    padding: calc(31px * .5) 20px calc(31px * .5) 57px!important;
+    text-align: left !important;
+    background-color: #fafbfd;
+    border: 1px solid #f1f3fa;
+    border-width: 0 1px;
+    min-height: 70px;
+}
+
+.avance th, td{
+    padding-left: 0 !important;
+}
+
+.page-title {
+    font-size: 18px;
+    margin: 0;
+    line-height: 75px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color:rgb(111, 117, 124);
+    font-weight: 700;
+}
+
+.card-title {
+    text-transform: uppercase;
+    letter-spacing: .02em;
+    font-size: .9rem;
+    margin-top: 0;
+}
