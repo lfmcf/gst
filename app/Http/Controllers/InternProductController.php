@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\InternProduct;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class InternProductController extends Controller
 {
@@ -78,6 +79,7 @@ class InternProductController extends Controller
         $internProduct->volume = $request->volume;
         $internProduct->price = $request->price;
         $internProduct->quantite = $request->quantite;
+        
         $internProduct->save();
         return redirect('inproduct');
     }

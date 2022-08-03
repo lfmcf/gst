@@ -9,6 +9,7 @@ use App\Models\Seller;
 use App\Models\Vente;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VenteController extends Controller
 {
@@ -36,6 +37,7 @@ class VenteController extends Controller
         $produit = $exproduit->merge($enproduit);
         // dd($exproduit);
         $clinet = client::all();
+       
         $vendeur = Seller::all();
         return view('vente.create', ['produit' => $produit, 'client' => $clinet, 'vendeur' => $vendeur]);
     }
@@ -76,6 +78,7 @@ class VenteController extends Controller
         $vent->numerotc = $request->numerotc;
         $vent->datetc = date('Y-m-d H:i:s', strtotime($request->datetc));
         $vent->observation = $request->observation;
+        $vent->created_by = Auth::user()->id;
         $vent->save();
 
         for($i = 0;$i < count($pr); $i++){
@@ -121,12 +124,14 @@ class VenteController extends Controller
     public function edit(Request $request, Vente $vente)
     {
         $vente = Vente::find($request->id);
+        //dd($vente->produit);
         $exproduit = collect(ExternProduct::all());
         $enproduit = collect(InternProduct::all());
         $produit = $exproduit->merge($enproduit);
         // dd($exproduit);
         $clinet = client::all();
         $vendeur = Seller::all();
+        //dd($clinet);
         // dd(gettype($vente->produit));
         return view('vente.update', ['produit' => $produit, 'client' => $clinet, 'vendeur' => $vendeur, 'vente' => $vente]);
     }
@@ -163,16 +168,16 @@ class VenteController extends Controller
     public function getavance(Request $request) {
         
         $vent = Vente::find($request->id);
-        $vent['avance'] = json_decode($vent['avance'], true);
+        //$vent['avance'] = json_decode($vent['avance'], true);
         return view('vente.avance', compact('vent'));
     }
 
     public function updateAvance(Request $request) {
         $vent = Vente::find($request->id);
-        $avance = json_decode($vent->avance, true);
-        array_push($avance['date'], $request->date);
-        array_push($avance['montant'], $request->montant);
-        $vent->avance = json_encode($avance);
+        // $avance = json_decode($vent->avance, true);
+        // array_push($avance['date'], $request->date);
+        // array_push($avance['montant'], $request->montant);
+        // $vent->avance = json_encode($avance);
         $vent->save();
         return redirect('vente');
     }

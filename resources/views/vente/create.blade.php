@@ -39,7 +39,7 @@
                         <div class="col-6">
                             <div class="mb-4">
                                 <label for="vendeur" class="form-label">Vendeur</label>
-                                <select name="vendeur" id="vendeur" class="form-control">
+                                <select name="vendeur" id="vendeur" class="form-control js-example-basic-single">
                                     <option selected disabled>Selectionnr vendeur</option>
                                 </select>
                                 <!-- <input type="text" class="form-control" name="sector" id="sector" placeholder="Vendeur"> -->
@@ -49,7 +49,7 @@
                             <div class="mb-4">
                                 <label for="client" class="form-label">Client</label>
                                 <!-- <input type="text" class="form-control" name="sector" id="sector" placeholder="secteur"> -->
-                                <select class="form-control" name="client" id="client">
+                                <select class="form-control js-example-basic-single" name="client" id="client">
                                     <option selected disabled>Selectionnr client</option>
                                 </select>
                             </div>
@@ -73,7 +73,7 @@
                                 <div class="col-6">
                                     <div class="mb-4">
                                         <label for="produit" class="form-label">Produit</label>
-                                        <select class="form-control" name="produit[]" id="produit">
+                                        <select class="form-control js-example-basic-single" name="produit[]" id="produit">
                                             <option selected disabled>Selectionnr produit</option>
                                         </select>
 
@@ -136,8 +136,8 @@
                         <div class="col-4">
                             <div class="mb-4">
                                 <label for="payment" class="form-label">Payment</label>
-                                <select class="form-control form-control-md" name="payment" id="payment">
-                                    <option></option>
+                                <select class="form-control form-control-md js-example-basic-single" name="payment" id="payment">
+                                    <option>Selectionner payement</option>
                                     <option>Traite</option>
                                     <option>Chèque</option>
                                     <option>Crédit</option>
@@ -193,7 +193,8 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $('.datepicker').datepicker();
+        $('.datepicker').datepicker({format: 'dd/mm/yyyy',});
+        $('.js-example-basic-single').select2();
     });
 
     var prodoptions = $("#produit");
@@ -201,7 +202,7 @@
     var vendoptions = $("#vendeur");
 
     var produit = '{!! json_encode($produit) !!}';
-    var client = '{!! json_encode($client) !!}';
+    var client = '{!! $client !!}';
     var vendeur = '{!! json_encode($vendeur) !!}';
 
     produit = JSON.parse(produit);
@@ -219,7 +220,7 @@
     });
 
     $.each(client, function() {
-        clioptions.append(new Option(this.name, this.name));
+        clioptions.append(new Option(this.name + ' ' + this.lastName, this.name + ' ' + this.lastName));
     });
 
     $.each(vendeur, function() {

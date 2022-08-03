@@ -42,7 +42,7 @@
 
     function operateFormatter(value, row, index) {
         return [
-            '<a class="update" id="#update" data-id=' + row.id + ' href="javascript:void(0)" title="Like">',
+            '<a class="update" id="update" data-id=' + row.id + ' href="javascript:void(0)" title="Like">',
             '<i class="bi bi-pencil"></i>',
             '</a>  ',
             

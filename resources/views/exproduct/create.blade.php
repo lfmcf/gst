@@ -19,6 +19,7 @@
                 <!-- <h4 class="header-title">Ajouter produit externe</h4> -->
                 <form action="{!! route('storeexproduct') !!}" method="POST">
                     @csrf
+                    <input style="display: none;" name="created_by" value="{{Auth::user()->id}}" />
                     <div class="row">
                         <div class="col-6">
                             <div class="mb-4">

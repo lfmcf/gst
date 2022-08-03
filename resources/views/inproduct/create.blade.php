@@ -18,6 +18,7 @@
                 <!-- <h4 class="header-title">ajouter produit interne</h4> -->
                 <form action="{!! route('storeinproduct') !!}" method="POST">
                     @csrf
+                    <input style="display: none;" name="created_by" value="{{Auth::user()->id}}" />
                     <div class="row">
                         <div class="col-6">
                             <div class="mb-4">

@@ -48,9 +48,9 @@
 
 <script type="text/javascript">
      $(document).ready(function() {
-        
+        $('.datepicker').datepicker({format: 'dd/mm/yyyy'})
         $('.datepicker').datepicker(
-            'setDate', new Date('{{$charge->date}}')
+            'setDate', new Date('{{$charge->date}}'),
         );
     });
 </script>

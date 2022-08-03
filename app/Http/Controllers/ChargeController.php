@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Charge;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ChargeController extends Controller
 {
@@ -41,6 +42,7 @@ class ChargeController extends Controller
         $charge->operation = $request->operation;
         $charge->date = date('Y-m-d H:i:s', strtotime($request->date));
         $charge->montant = $request->montant;
+        $charge->created_by = Auth::user()->id;
         $charge->save();
         return redirect('charge');
     }
