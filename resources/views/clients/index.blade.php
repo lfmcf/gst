@@ -44,7 +44,7 @@
 
     function operateFormatter(value, row, index) {
         return [
-            '<a class="update" id="#update" data-id=' + row.id + ' href="javascript:void(0)" title="Like">',
+            '<a class="update" id="update" data-id=' + row.id + ' href="javascript:void(0)" title="Modifier">',
             '<i class="bi bi-pencil"></i>',
             '</a>  ',
            
@@ -116,8 +116,9 @@
     initTable();
 
     $('.update').on('click', function(e) {
-        //e.preventDefault()
+        
         var id = $(this).data("id");
+        //console.log(id);
         // var route = route('editClient', ['id' => "$(this).data('id')" ])
         window.location.href = "/client/update/" + id;
     });

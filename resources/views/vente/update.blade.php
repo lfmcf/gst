@@ -40,7 +40,7 @@
                         <div class="col-6">
                             <div class="mb-4">
                                 <label for="vendeur" class="form-label">Vendeur</label>
-                                <select name="vendeur" id="vendeur" class="form-control" value="{{$vente->vendeur}}">
+                                <select name="vendeur" id="vendeur" class="form-control js-example-basic-single" value="{{$vente->vendeur}}">
                                     <option selected disabled>Selectionnr vendeur</option>
                                 </select>
                                 <!-- <input type="text" class="form-control" name="sector" id="sector" placeholder="Vendeur"> -->
@@ -50,7 +50,7 @@
                             <div class="mb-4">
                                 <label for="client" class="form-label">Client</label>
                                 <!-- <input type="text" class="form-control" name="sector" id="sector" placeholder="secteur"> -->
-                                <select class="form-control" name="client" id="client" value="{{$vente->client}}">
+                                <select class="form-control js-example-basic-single" name="client" id="client" value="{{$vente->client}}">
                                     <option selected disabled>Selectionnr client</option>
                                 </select>
                             </div>
@@ -63,7 +63,7 @@
                     </div>
                     <!-- <span id="writeroot"></span> -->
                     <div id="readroot">
-                      <?php $pr = json_decode($vente->produit);  for($i = 0; $i < count($pr->name);  $i++) { ?> 
+                      <?php $pr = $vente->produit; for($i = 0; $i < count($pr['name']);  $i++) { ?> 
                         <fieldset class="border p-2 mb-4" id="root">
                             <legend class="w-auto" id="leg"></legend>
                             <div id="rm" style="<?php echo $i>0 ? "display:flex;" : "display:none;" ?> justify-content:end">
@@ -75,8 +75,8 @@
                                 <div class="col-6">
                                     <div class="mb-4">
                                         <label for="produit" class="form-label">Produit</label>
-                                        <select class="form-control" name="produit[]" id="produit">
-                                            <option selected disabled>Selectionnr produit</option>
+                                        <select class="form-control js-example-basic-single" name="produit[]" id="produit" value="{{$pr['name'][$i]}}">
+                                            <option disabled>Selectionnr produit</option>
                                         </select>
 
                                     </div>
@@ -84,19 +84,19 @@
                                 <div class="col-6">
                                     <div class="mb-4">
                                         <label for="quantite" class="form-label">Quantité</label>
-                                        <input type="text" class="form-control quantite" name="quantite[]" id="quantite" placeholder="Quantité" value="{{$pr->quantite[$i]}}">
+                                        <input type="text" class="form-control quantite" name="quantite[]" id="quantite" placeholder="Quantité" value="{{$pr['quantite'][$i]}}">
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="mb-4">
                                         <label for="prix" class="form-label">Prix unitaire</label>
-                                        <input type="text" class="form-control" name="prix[]" id="prix" placeholder="Prix unitaire" value="{{$pr->prix_u[$i]}}">
+                                        <input type="text" class="form-control" name="prix[]" id="prix" placeholder="Prix unitaire" value="{{$pr['prix_u'][$i]}}">
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="mb-4">
                                         <label for="somme" class="form-label">Somme</label>
-                                        <input type="text" class="form-control" name="somme[]" id="somme" placeholder="Somme" value="{{$pr->somme[$i]}}">
+                                        <input type="text" class="form-control" name="somme[]" id="somme" placeholder="Somme" value="{{$pr['somme'][$i]}}">
                                     </div>
                                 </div>
                             </div>
@@ -107,20 +107,16 @@
                         <div class="col-4">
                             <div class="mb-4">
                                 <label for="payment" class="form-label">Payment</label>
-                                <select class="form-control" name="payment" id="payment" value="{{$vente->payment}}">
-                                    <option></option>
-                                    <option value="Traite">Traite</option>
-                                    <option value="Chèque">Chèque</option>
-                                    <option value="Espèce">Espèce</option>
+                                <select class="form-control js-example-basic-single" name="payment" id="payment" >
+                                    <option disabled value="">Selectionner payement</option>
+                                    <option <?php $vente->payment == "Traite" ? 'selected' : '' ?>   value="Traite">Traite</option>
+                                    <option <?php $vente->payment == "Chèque" ? 'selected' : '' ?> value="Chèque">Chèque</option>
+                                    <option <?php $vente->payment == "Crédit" ? 'selected' : '' ?> value="Crédit">Crédit</option>
+                                    <option <?php $vente->payment == "Espèce" ? 'selected' : '' ?> value="Espèce">Espèce</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-4">
-                            <div class="mb-4">
-                                <label for="avance" class="form-label">Avance</label>
-                                <input type="text" class="form-control" name="avance" id="avance" placeholder="Avance" value="{{$vente->avance}}">
-                            </div>
-                        </div>
+                        
                         <div class="col-4">
                             <div class="mb-4">
                                 <label for="reste" class="form-label">Reste</label>
@@ -146,6 +142,8 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+        $('.datepicker').datepicker({format: 'dd/mm/yyyy'})
         $('.datepicker').datepicker('setDate', new Date("{{$vente->date}}"));
     });
 
@@ -156,41 +154,37 @@
     var produit = '{!! json_encode($produit) !!}';
     var client = '{!! json_encode($client) !!}';
     var vendeur = '{!! json_encode($vendeur) !!}';
-    var vent = '{!! $vente->produit !!}';
+    var vent = '{!! json_encode($vente->produit) !!}';
 
-    // console.log(JSON.parse(vent));
 
     produit = JSON.parse(produit);
     client = JSON.parse(client);
     vendeur = JSON.parse(vendeur);
-    // vent = vent.replace(/\\n/g, "\\n")
-    //     .replace(/\\'/g, "\\'")
-    //     .replace(/\\"/g, '\\"')
-    //     .replace(/\\&/g, "\\&")
-    //     .replace(/\\r/g, "\\r")
-    //     .replace(/\\t/g, "\\t")
-    //     .replace(/\\b/g, "\\b")
-    //     .replace(/\\f/g, "\\f");
-    
-    // vent = vent.replace(/[\u0000-\u0019]+/g, "");
-    // vent = vent.replaceAll('&quot;', "");
     vent = JSON.parse(vent);
-    console.log(vent);
+    console.log(vent.name);
     
     
 
 
 
     $.each(produit, function() {
-        prodoptions.append(new Option(this.productName + ' , ' + this.volume, this.productName + ' , ' + this.volume));
+        if (this.volume) {
+            prodoptions.append(new Option(this.productName + ' , ' + this.volume, this.productName + ' , ' + this.volume));
+        } else {
+            prodoptions.append(new Option(this.productName, this.productName));
+        }
     });
 
     $.each(client, function() {
-        clioptions.append(new Option(this.name, this.name));
+        this.name == '{{$vente->client}}' ? 
+        clioptions.append(new Option(this.name + ' ' + this.lastName, this.name + ' ' + this.lastName, true, true))
+        : clioptions.append(new Option(this.name + ' ' + this.lastName, this.name + ' ' + this.lastName, false));
     });
 
     $.each(vendeur, function() {
-        vendoptions.append(new Option(this.name, this.name));
+        this.name == '{{$vente->vendeur}}' ?
+        vendoptions.append(new Option(this.name, this.name, true, true)) :
+        vendoptions.append(new Option(this.name, this.name, false));
     });
 
     var counter = 0;

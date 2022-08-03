@@ -16,6 +16,7 @@
                 <!-- <h4 class="header-title mb-5">Ajouter nouveau client</h4> -->
                 <form  action="{!! route('storeClient') !!}" method="POST">
                     @csrf
+                    <input style="display: none;" name="created_by" value="{{Auth::user()->id}}" />
                     <div class="row">
                         <div class="col-6">
                             <div class="mb-4">
